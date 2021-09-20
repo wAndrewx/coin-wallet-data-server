@@ -1,0 +1,33 @@
+{
+  "name": "crypto-gecko-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wAndrewx/coin-wallet-data-server.git"
+  },
+  "author": "Andrew Huynh | wAndrewx",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wAndrewx/coin-wallet-data-server/issues"
+  },
+  "homepage": "https://github.com/wAndrewx/coin-wallet-data-server#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jest": "^27.2.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.9.4",
+    "@types/pg": "^8.6.1"
+  }
+}
