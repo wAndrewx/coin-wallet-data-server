@@ -1,0 +1,5 @@
+const getCoin = () => {
+
+}
+
+export { getCoin }
