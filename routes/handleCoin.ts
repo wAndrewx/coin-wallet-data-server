@@ -6,12 +6,12 @@ router.get('/total', async (req, res) => {
     let query = await Pool.query('SELECT token_ticker, total_visits, token_name FROM coins')
     console.log(query.rows)
     console.log("test")
-    res.send(query.rows)
+    res.send({ message: "Success", query: query.rows })
 }) //get total coin visits
 router.get('/daily', async (req, res) => {
     let query = await Pool.query('SELECT token_ticker, daily_visits, token_name FROM coins')
     console.log(query.rows)
-    return res.send(query.rows)
+    return res.send({ message: "Success", query: query.rows })
 }) //get daily coin visits
 
 router.patch('/total', async (req, res) => {
@@ -32,10 +32,10 @@ router.patch('/total', async (req, res) => {
             console.log(error)
         }
 
-        return res.send('Updated')
+        return res.send({ message: 'Updated' })
 
     } else {
-        return res.send("Send a token name and ticker")
+        return res.send({ message: "Send a token name and ticker" })
     }
 }) // increment total
 
@@ -57,15 +57,29 @@ router.patch('/daily', async (req, res) => {
             console.log(error)
         }
 
-        return res.send('Updated')
+        return res.send({ message: 'Updated' })
 
     } else {
-        return res.send("Send a token name and ticker")
+        return res.send({ message: "Send a token name and ticker" })
     }
 }) // increment daily
 
-router.patch('/daily', (req, res) => { }) //reset daily
+router.patch('/daily', async (req, res) => {
 
-// router.get('/gecko', (req, res) => { }, geckoAPI)
+    try {
+        let query = await Pool.query(
+            `
+            UPDATE coins
+            SET daily_visits = 0
+            `
+        )
+        res.send({ message: "Reset successful" })
+    } catch (error) {
+        res.send(error)
+
+    }
+
+}) //reset daily
+
 
 export default router
