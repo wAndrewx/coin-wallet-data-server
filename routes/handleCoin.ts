@@ -6,7 +6,9 @@ router.get('/total', async (req, res) => {
     let query = await Pool.query(
         `
     SELECT token_ticker, total_visits, token_name 
-    FROM coins`)
+    FROM coins
+    LIMIT 10
+    `)
     // console.log(query.rows)
     // console.log("test")
     res.send({ message: "Success", query: query.rows })
