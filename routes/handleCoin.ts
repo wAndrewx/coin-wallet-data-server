@@ -7,6 +7,7 @@ router.get('/total', async (req, res) => {
         `
     SELECT token_ticker, total_visits, token_name 
     FROM coins
+    ORDER BY token_ticker DESC
     LIMIT 10
     `)
     // console.log(query.rows)
@@ -19,6 +20,7 @@ router.get('/daily', async (req, res) => {
             `
         SELECT token_ticker, daily_visits, token_name 
         FROM coins
+        ORDER BY token_ticker DESC
         LIMIT 10
         `)
         // console.log(query.rows)
