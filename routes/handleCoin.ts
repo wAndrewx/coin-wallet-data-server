@@ -64,7 +64,7 @@ router.patch('/daily', async (req, res) => {
     }
 }) // increment daily
 
-router.patch('/daily', async (req, res) => {
+router.patch('/daily/reset', async (req, res) => {
 
     try {
         let query = await Pool.query(
