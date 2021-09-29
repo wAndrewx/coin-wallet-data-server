@@ -19,7 +19,12 @@
       "@/*": [
         "./*"
       ]
-    }
+    },
+    "typeRoots": [
+      "./typings",
+      "@types",
+      "./node_modules/@types"
+    ]
   },
   "exclude": [
     "node_modules",
@@ -27,6 +32,12 @@
   ],
   "include": [
     "./*.ts",
-    "tests/*.spec.ts"
-, "routes/handleCoin.ts"  ]
+    "tests/*.spec.ts",
+    "index.d.ts",
+    "routes/handleCoin.ts",
+    "typings/express/index.d.ts"
+  ],
+  "files": [
+    "typings/express/index.d.ts"
+  ]
 }
