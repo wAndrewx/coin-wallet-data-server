@@ -5,9 +5,9 @@ let router = Router()
 router.get('/total', async (req, res) => {
     let query = await Pool.query(
         `
-    SELECT token_ticker, total_visits, token_name 
+    SELECT token_ticker, total_visits 
     FROM coins
-    ORDER BY token_ticker DESC
+    ORDER BY total_visits DESC
     LIMIT 10
     `)
     res.send({ message: "Success", query: query.rows })
@@ -16,9 +16,9 @@ router.get('/daily', async (req, res) => {
     try {
         let query = await Pool.query(
             `
-        SELECT token_ticker, daily_visits, token_name 
+        SELECT token_ticker, daily_visits 
         FROM coins
-        ORDER BY token_ticker DESC
+        ORDER BY daily_visits DESC
         LIMIT 5
         `)
         return res.send({ message: "Success", query: query.rows })
@@ -29,8 +29,10 @@ router.get('/daily', async (req, res) => {
 }) //get daily coin visits
 
 router.patch('/total', async (req, res) => {
+
     let coinTicker = req.query.ticker
     let coinToken = req.query.token
+    console.log(coinTicker)
     let incrementQuery =
         `
     UPDATE coins
@@ -47,10 +49,10 @@ router.patch('/total', async (req, res) => {
     if (coinTicker && coinToken) { // updating existing coin , need to add path to update and add coin if coin DNE
         try {
             if (req.doesExist) {
-                let query = await Pool.query(incrementQuery, [coinTicker, coinToken, 1, 1])
+                let query = await Pool.query(incrementQuery, [coinTicker, coinToken])
             } else {
-                console.log("not existing")
-                let query = await Pool.query(addNewCoinQuery, [coinTicker, coinToken])
+                console.log("coin no existing")
+                let query = await Pool.query(addNewCoinQuery, [coinTicker, coinToken, 1, 1])
             }
         } catch (error) {
             console.log(error)
