@@ -1,4 +1,4 @@
-import { Router } from 'express'
+import { RequestHandler, Router } from 'express'
 import Pool from '../db/db'
 let router = Router()
 
@@ -10,8 +10,6 @@ router.get('/total', async (req, res) => {
     ORDER BY token_ticker DESC
     LIMIT 10
     `)
-    // console.log(query.rows)
-    // console.log("test")
     res.send({ message: "Success", query: query.rows })
 }) //get total coin visits
 router.get('/daily', async (req, res) => {
@@ -21,9 +19,8 @@ router.get('/daily', async (req, res) => {
         SELECT token_ticker, daily_visits, token_name 
         FROM coins
         ORDER BY token_ticker DESC
-        LIMIT 10
+        LIMIT 5
         `)
-        // console.log(query.rows)
         return res.send({ message: "Success", query: query.rows })
 
     } catch (error) {
@@ -32,22 +29,26 @@ router.get('/daily', async (req, res) => {
 }) //get daily coin visits
 
 router.patch('/total', async (req, res) => {
+    console.log("DOES EXIST:", req.doesExist)
     let coinTicker = req.query.ticker
     let coinToken = req.query.token
 
-    // console.log(coinTicker, coinToken)
     if (coinTicker && coinToken) { // updating existing coin , need to add path to update and add coin if coin DNE
         try {
-            let query = await Pool.query(
-                `
+            if (req.doesExist) {
+                let query = await Pool.query(
+                    `
             UPDATE coins
-            SET total_visits = total_visits + 1
+            SET total_visits = total_visits + 1,
+                daily_visits = daily_visits + 1
             WHERE token_ticker = $1 AND token_name = $2
              `,
-                [coinTicker, coinToken])
-            // console.log(query)
+                    [coinTicker, coinToken])
+            } else {
+                //add new row
+            }
         } catch (error) {
-            // console.log(error)
+            console.log(error)
         }
 
         return res.send({ message: 'Updated' })
@@ -57,30 +58,6 @@ router.patch('/total', async (req, res) => {
     }
 }) // increment total
 
-router.patch('/daily', async (req, res) => {
-    let coinTicker = req.query.ticker
-    let coinToken = req.query.token
-
-    // console.log(coinTicker, coinToken)
-    if (coinTicker && coinToken) { // updating existing coin , need to add path to update and add coin if coin DNE
-        try {
-            let query = await Pool.query(
-                `UPDATE coins
-             SET daily_visits = daily_visits + 1
-             WHERE token_ticker = $1 AND token_name = $2
-             `,
-                [coinTicker, coinToken])
-            // console.log(query)
-        } catch (error) {
-            // console.log(error)
-        }
-
-        return res.send({ message: 'Updated' })
-
-    } else {
-        return res.send({ message: "Send a token name and ticker" })
-    }
-}) // increment daily
 
 router.patch('/daily/reset', async (req, res) => {
 
