@@ -29,23 +29,28 @@ router.get('/daily', async (req, res) => {
 }) //get daily coin visits
 
 router.patch('/total', async (req, res) => {
-    console.log("DOES EXIST:", req.doesExist)
     let coinTicker = req.query.ticker
     let coinToken = req.query.token
+    let incrementQuery =
+        `
+    UPDATE coins
+    SET total_visits = total_visits + 1,
+        daily_visits = daily_visits + 1
+    WHERE token_ticker = $1 AND token_name = $2
+    `
+    let addNewCoinQuery =
+        `
+    INSERT INTO coins (token_ticker,token_name,daily_visits,total_visits)
+    VALUES($1, $2, $3, $4)
+    `
 
     if (coinTicker && coinToken) { // updating existing coin , need to add path to update and add coin if coin DNE
         try {
             if (req.doesExist) {
-                let query = await Pool.query(
-                    `
-            UPDATE coins
-            SET total_visits = total_visits + 1,
-                daily_visits = daily_visits + 1
-            WHERE token_ticker = $1 AND token_name = $2
-             `,
-                    [coinTicker, coinToken])
+                let query = await Pool.query(incrementQuery, [coinTicker, coinToken, 1, 1])
             } else {
-                //add new row
+                console.log("not existing")
+                let query = await Pool.query(addNewCoinQuery, [coinTicker, coinToken])
             }
         } catch (error) {
             console.log(error)
