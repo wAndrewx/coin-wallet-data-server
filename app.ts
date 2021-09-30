@@ -1,33 +1,19 @@
-import app from "./express-app"
-import cluster from "cluster";
-import { cpus } from 'os'
-import 'dotenv/config'
-// var cluster = require('cluster'),
-// app = require('./express-app');
+import express from "express"
+import morgan from "morgan"
+import cors from "cors"
+import handleCoin from "./routes/handleCoin"
+import { checkExistingRows } from "./middleware/checkExisting"
+const app = express()
 
-let workers: any = {},
-    count = cpus().length;
+app.use(morgan("tiny"))
+app.use(cors())
+app.use(express.json())
+app.use('/coin', checkExistingRows, handleCoin) // middleware
 
-function spawn() {
-    let worker = cluster.fork();
-    workers[worker.id] = worker;
-    return worker;
-}
+app.get('/', (req, res) => {
+    console.log("Connected")
+    return res.send("Connected")
+})
 
-if (cluster.isPrimary) {
-    console.log("Spawning some workers")
+export default app
 
-    for (var i = 0; i < count; i++) {
-        spawn();
-    }
-    cluster.on('death', function (worker) {
-        console.log('worker ' + worker.pid + ' died. spawning a new process...');
-        delete workers[worker.pid];
-        spawn();
-    });
-} else {
-    app.listen(process.env.PORT || 8080, () => {
-        console.log("Connected")
-
-    });
-}
