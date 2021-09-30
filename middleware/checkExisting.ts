@@ -1,8 +1,8 @@
 import Pool from "../db/db";
 import { RequestHandler } from 'express';
+import { checkExistingCoinRequest } from '../typings/express/index'
 
-
-export const checkExistingRows: RequestHandler = async (req, res, next) => {
+export const checkExistingRows: RequestHandler = async (req: checkExistingCoinRequest, res, next) => {
     let token = req.query.token
     let ticker = req.query.ticker
     try {

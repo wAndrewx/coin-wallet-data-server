@@ -1,5 +1,6 @@
 import { RequestHandler, Router } from 'express'
 import Pool from '../db/db'
+import { checkExistingCoinRequest } from '../typings/express/index'
 let router = Router()
 
 router.get('/total', async (req, res) => {
@@ -28,7 +29,7 @@ router.get('/daily', async (req, res) => {
     }
 }) //get daily coin visits
 
-router.patch('/total', async (req, res) => {
+router.patch('/total', async (req: checkExistingCoinRequest, res) => {
 
     let coinTicker = req.query.ticker
     let coinToken = req.query.token
