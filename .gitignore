@@ -2,6 +2,7 @@ node_modules
 *.js
 .env
 /build
+.npmrc
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
