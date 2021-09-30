@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc index.ts --esModuleInterop",
+    "start": "npx tsc && node app.js ",
     "dev": "ts-node-dev index.ts",
+    "build": "tsc app.ts --esModuleInterop",
     "test": "jest --verbose"
   },
   "repository": {
