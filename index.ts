@@ -1,5 +1,5 @@
 import http from 'http'
-import app from './app'
+import app from './express-app'
 
 let httpServer = http.createServer(app)
 
