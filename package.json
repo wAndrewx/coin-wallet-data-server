@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npx tsc && node index.js ",
+    "pm2": "NODE_ENV=prod tsc index.ts --esModuleInterop && pm2 start index.js --watch -i max -- start",
     "dev": "ts-node-dev index.ts",
     "build": "tsc index.ts --esModuleInterop",
     "test": "jest --verbose"
