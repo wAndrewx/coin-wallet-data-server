@@ -5,9 +5,17 @@
 - Keep track of how many times a coin's data has been visited
   - In total
   - Daily
-- Cron job to reset daily vists
+- Daily resets 
+
 
 ---
+
+## TODO:
+
+- [ ] SSL certificate
+- [ ] Load balancing with nginx
+- [ ] Cron job to reset daily vists
+
 
 ## Technologies
 
@@ -23,7 +31,7 @@
 ### Backend   
 
 - Server hosted on AWS EC2
-    - PM2 handles process manager
+    - PM2 manages process 
 
 - PostgresSQL
     - Hosted using AWS RDS    
@@ -71,7 +79,7 @@ CREATE TABLE coins (
 
 ### Clone and install dependencies
 
-#### If Typescript does not work for you try:
+##### If Typescript does not work for you try:
 
 ``` bash
 $ npm i typescript -g
@@ -92,7 +100,7 @@ $ npm install
 ``` bash
 $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 ```
-### Install Node, I used version Node 16
+##### Install Node, I used version Node 16
 
 ```
 $ nvm install <version>
