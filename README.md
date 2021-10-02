@@ -14,7 +14,7 @@
 
 - [ ] SSL certificate
 - [ ] Load balancing with nginx
-- [ ] Cron job to reset daily vists
+- [ ] Cron job to reset daily visits
 
 
 ## Technologies
