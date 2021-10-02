@@ -1,5 +1,11 @@
 # Overview 
 
+## Demo
+
+![project demo](./public/projectdemo.png)
+
+##### *Public wallet used for picture demo*
+---
 ## Features
 
 - Keep track of how many times a coin's data has been visited
