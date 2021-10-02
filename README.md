@@ -15,6 +15,7 @@
 - [ ] SSL certificate
 - [ ] Load balancing with nginx
 - [ ] Cron job to reset daily visits
+- [ ] Unit testing for endpoints
 
 
 ## Technologies
